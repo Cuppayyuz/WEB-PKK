@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Kelola Kategori</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#58106d', // Warna ungu tua sidebar
+                            light: '#a832a8', // Warna ungu tombol/aktif
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+
+    <div class="flex h-screen overflow-hidden">
+
+        <aside class="w-64 bg-brand-dark text-white flex flex-col">
+            <div class="flex items-center gap-3 p-6 border-b border-white/10">
+                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-bold text-sm">
+                    AP
+                </div>
+                <div>
+                    <h1 class="font-bold text-sm leading-tight">Aubira Purplora</h1>
+                    <p class="text-xs text-gray-300">Dashboard Admin</p>
+                </div>
+            </div>
+
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-gray-300 hover:bg-white/10 transition">
+                    <i class="fa-solid fa-house w-5 text-center"></i>
+                    Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-semibold bg-brand-light text-white shadow-md">
+                    <i class="fa-solid fa-list w-5 text-center"></i>
+                    Kategori
+                </a>
+            </nav>
+        </aside>
+
+        <main class="flex-1 overflow-y-auto p-8">
+            
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Kelola Kategori Produk</h2>
+                <p class="text-sm text-gray-500 mt-1">Selamat datang, ini adalah dashboard untuk mengelola produk</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 relative">
+                    <h3 class="text-xs font-semibold text-gray-400 mb-2">Total Produk</h3>
+                    <div class="text-3xl font-bold">4</div>
+                    <div class="absolute top-5 right-5 w-10 h-10 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center">
+                        <i class="fa-solid fa-box"></i>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="#" class="text-xs text-blue-500 font-medium hover:underline">Lihat Detail ></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 relative">
+                    <h3 class="text-xs font-semibold text-gray-400 mb-2">Total Penjualan</h3>
+                    <div class="text-3xl font-bold">4</div>
+                    <div class="absolute top-5 right-5 w-10 h-10 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="#" class="text-xs text-blue-500 font-medium hover:underline">Lihat Detail ></a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 relative">
+                    <h3 class="text-xs font-semibold text-gray-400 mb-2">Pending Orders</h3>
+                    <div class="text-3xl font-bold">4</div>
+                    <div class="absolute top-5 right-5 w-10 h-10 rounded-lg bg-rose-100 text-rose-500 flex items-center justify-center">
+                        <i class="fa-solid fa-hourglass-half"></i>
+                    </div>
+                    <div class="mt-4 text-right">
+                        <a href="#" class="text-xs text-blue-500 font-medium hover:underline">Lihat Detail ></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <div class="lg:col-span-4 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden h-fit">
+                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
+                        <h3 class="font-bold text-gray-800 text-sm">Tambah Kategori</h3>
+                    </div>
+                    <div class="p-6 space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-2">Nama Kategori</label>
+                            <input type="text" placeholder="Contoh: Goreng" class="w-full border border-gray-200 bg-gray-50 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 mb-2">Warna Background</label>
+                            <div class="relative flex items-center">
+                                <input type="text" id="colorText" placeholder="Contoh: #8c8c8c" class="w-full border border-gray-200 bg-gray-50 rounded-lg pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:border-brand-light focus:ring-1 focus:ring-brand-light transition">
+                                
+                                <button type="button" onclick="document.getElementById('colorPicker').click()" class="absolute right-2 w-8 h-8 rounded border border-gray-300 flex items-center justify-center overflow-hidden">
+                                    <div id="colorPreview" class="w-full h-full bg-gray-300"></div>
+                                </button>
+                                
+                                <input type="color" id="colorPicker" class="absolute opacity-0 w-0 h-0" onchange="updateColor(this.value)">
+                            </div>
+                        </div>
+
+                        <button class="w-full bg-brand-light hover:bg-purple-800 text-white font-semibold rounded-lg py-3 text-sm transition mt-4">
+                            Simpan
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col">
+                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
+                        <h3 class="font-bold text-gray-800 text-sm">List Kategori Produk</h3>
+                        <p class="text-xs text-gray-500 mt-1">Daftar Semua Kategori Yang Tersedia</p>
+                    </div>
+                    
+                    <div class="flex-1 p-0 overflow-x-auto">
+                        <table class="w-full text-left text-sm whitespace-nowrap">
+                            <thead class="bg-gray-100 text-gray-600 text-xs font-bold border-y border-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3 w-16">Id</th>
+                                    <th class="px-6 py-3 text-center">Kategori</th>
+                                    <th class="px-6 py-3 text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold">1</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold w-24">Goreng</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <button class="px-3 py-1 border border-blue-400 text-blue-500 text-xs font-semibold rounded hover:bg-blue-50 transition">Edit</button>
+                                        <button class="px-3 py-1 border border-red-400 text-red-500 text-xs font-semibold rounded hover:bg-red-50 transition">Hapus</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold">2</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold w-24">Desert</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <button class="px-3 py-1 border border-blue-400 text-blue-500 text-xs font-semibold rounded hover:bg-blue-50 transition">Edit</button>
+                                        <button class="px-3 py-1 border border-red-400 text-red-500 text-xs font-semibold rounded hover:bg-red-50 transition">Hapus</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-6 py-4 font-semibold">3</td>
+                                    <td class="px-6 py-4 text-center">
+                                        <span class="inline-block bg-gray-200 text-gray-700 px-4 py-1 rounded-full text-xs font-semibold w-24">Minuman</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-center space-x-2">
+                                        <button class="px-3 py-1 border border-blue-400 text-blue-500 text-xs font-semibold rounded hover:bg-blue-50 transition">Edit</button>
+                                        <button class="px-3 py-1 border border-red-400 text-red-500 text-xs font-semibold rounded hover:bg-red-50 transition">Hapus</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between text-xs">
+                        <span class="text-gray-500">Menampilkan 4 dari 10 Data</span>
+                        <div class="flex space-x-1">
+                            <button class="px-3 py-1 rounded border border-gray-200 text-gray-400 cursor-not-allowed">Sebelum</button>
+                            <button class="px-3 py-1 rounded bg-brand-dark text-white font-bold">1</button>
+                            <button class="px-3 py-1 rounded border border-gray-200 text-gray-600 hover:bg-gray-50">2</button>
+                            <button class="px-3 py-1 rounded border border-gray-200 text-gray-600 hover:bg-gray-50">Setelah</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function updateColor(hexValue) {
+            // Update teks input
+            document.getElementById('colorText').value = hexValue;
+            // Update warna latar belakang kotak preview
+            document.getElementById('colorPreview').style.backgroundColor = hexValue;
+        }
+
+        // Opsional: Jika user mengetik manual di text input, kotak warnanya juga berubah
+        document.getElementById('colorText').addEventListener('input', function(e) {
+            let val = e.target.value;
+            // Cek apakah format hex valid (sedikit dasar)
+            if(/^#[0-9A-F]{6}$/i.test(val)){
+                document.getElementById('colorPreview').style.backgroundColor = val;
+                document.getElementById('colorPicker').value = val;
+            }
+        });
+    </script>
+</body>
+</html>
