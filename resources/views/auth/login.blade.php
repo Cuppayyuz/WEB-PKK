@@ -9,7 +9,7 @@
 <body class="bg-[#540863] h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded-2xl shadow-xl w-96">
         <h2 class="text-2xl font-bold text-[#540863] mb-6 text-center">Portal Aubira</h2>
-        <form action="/portal-rahasia-aubira" method="POST" class="space-y-4">
+        <form action="{{ route('login') }}" method="POST" class="space-y-4">
             @csrf
             <div>
                 <label class="block text-sm font-medium text-gray-700">Email</label>

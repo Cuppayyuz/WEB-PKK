@@ -21,7 +21,9 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('admin/dashboard');
+
+            // Kita hapus fungsi "intended", ganti dengan redirect langsung ke alamat dashboardmu
+            return redirect('/admin/dashboard');
         }
 
         return back()->withErrors([
@@ -34,7 +36,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect('/');
     }
 }
