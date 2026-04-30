@@ -10,10 +10,18 @@ use App\Models\Category;
 use App\Http\Controllers\LabelController;
 use App\Http\Controllers\VariantController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
-    return view('welcome'); 
+    // Ambil produk dan kategori dari database
+    $products = App\Models\Product::with(['category', 'label'])->latest()->get();
+    
+    return view('welcome', compact('products')); 
 });
+
+Route::post('/contact', [MessageController::class, 'store'])
+    ->name('contact.store')
+    ->middleware('throttle:3,10');
 
 Route::get('/paksa-keluar', function () {
     Auth::logout();
@@ -87,4 +95,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/produk/{id}/edit', [ProductController::class, 'edit'])->name('admin.produk.edit');
     Route::put('/produk/{id}', [ProductController::class, 'update'])->name('admin.produk.update');
     Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->name('admin.produk.destroy');
+    Route::get('/messages', [MessageController::class, 'index'])->name('admin.messages.index');
+    Route::delete('/messages/{id}', [MessageController::class, 'destroy'])->name('admin.messages.destroy');
 });

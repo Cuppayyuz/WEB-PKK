@@ -58,8 +58,13 @@
             </svg>
             <span class="font-medium">Variants</span>
         </a>
+        <a href="{{ route('admin.messages.index') }}" class="{{ request()->routeIs('admin.messages.index') ? 'bg-[#A41DF0] shadow-md' : 'hover:bg-[#A41DF0]/50' }} flex items-center gap-3 text-white px-4 py-3 rounded-xl font-medium transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+            </svg>
+            Pesan Masuk
+        </a>
         <div class="p-4 mt-auto border-t border-white/10">
-    
     </nav>
     <form action="{{ route('logout') }}" method="POST">
         @csrf
@@ -68,14 +73,14 @@
 
             <div class="ml-2">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
-            </svg>
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+                </svg>
             </div>
 
             <span class="font-medium text-sm ml-2">Keluar Admin</span>
         </button>
     </form>
-</div>
+    </div>
 </aside>
