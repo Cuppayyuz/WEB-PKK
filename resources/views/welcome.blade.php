@@ -577,7 +577,7 @@
             }
 
             // 2. Setting nomor WA tujuan (Ganti pakai nomor admin yang asli, gunakan format 62 tanpa + atau 0)
-            const nomorWA = "6281234567890";
+            const nomorWA = "628";
 
             // 3. Siapkan teks sapaan awal
             let textWA = "Halo Admin Aubira Purplora! 💜\nSaya mau order menu ini dong:\n\n";
