@@ -116,17 +116,24 @@
             Setiap sajian dibuat dengan tangan menggunakan ubi ungu pilihan, memadukan resep tradisional dengan sentuhan teknik modern untuk rasa yang tak terlupakan.
         </p>
 
-        <div class="flex flex-wrap justify-center text-center gap-4 mt-12">
-            <button class="px-6 py-2 bg-[#D8B4FE] text-[#7A379B] font-bold rounded-full transition">Semua Produk</button>
-            <button class="px-6 py-2 bg-white/20 text-white hover:bg-white hover:text-[#7A379B] font-bold rounded-full transition">Goreng</button>
-            <button class="px-6 py-2 bg-white/20 text-white hover:bg-white hover:text-[#7A379B] font-bold rounded-full transition">Desert</button>
-            <button class="px-6 py-2 bg-white/20 text-white hover:bg-white hover:text-[#7A379B] font-bold rounded-full transition">Minuman</button>
+        <div class="flex flex-wrap justify-center text-center gap-4 mt-12" id="filter-container">
+            <!-- Tombol Semua Produk (Default Active) -->
+            <button onclick="filterMenu('all', this)" class="filter-btn px-6 py-2 bg-[#D8B4FE] text-[#7A379B] font-bold rounded-full transition">
+                Semua Produk
+            </button>
+
+            <!-- Looping Tombol dari Database -->
+            @foreach($categories as $category)
+            <button onclick="filterMenu('{{ $category->id }}', this)" class="filter-btn px-6 py-2 bg-white/20 text-white hover:bg-white hover:text-[#7A379B] font-bold rounded-full transition">
+                {{ $category->name }}
+            </button>
+            @endforeach
         </div>
 
         <div class="max-w-7xl mx-auto mt-16 pb-20 text-left">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 @forelse($products as $product)
-                <div class="bg-[#E9DFFF] rounded-3xl p-5 shadow-xl flex flex-col transform hover:scale-105 transition-transform duration-300">
+                <div data-kategori="{{ $product->category_id }}" class="menu-card bg-[#E9DFFF] rounded-3xl p-5 shadow-xl flex flex-col transform hover:scale-105 transition-transform duration-300">
                     <div class="relative rounded-2xl overflow-hidden mb-4 aspect-square">
                         <img src="{{ $product->image_path ? asset('storage/' . $product->image_path) : 'https://placehold.co/400x400/4a0e4e/ffffff?text=Ubi' }}" alt="{{ $product->name }}" class="w-full h-full object-cover rounded-2xl" />
 
@@ -146,7 +153,14 @@
                     <div class="flex items-center justify-between mt-auto">
                         <p class="text-[#7A379B] text-xl font-bold">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
 
-                        <button onclick="openModal('{{ addslashes($product->name) }}', 'Rp {{ number_format($product->price, 0, ',', '.') }}', '{{ $product->image_path ? asset('storage/' . $product->image_path) : 'https://placehold.co/400x400/4a0e4e/ffffff?text=Ubi' }}', {{ $product->price }})" class="text-[#7A379B] font-medium text-sm flex items-center hover:opacity-80 transition-opacity">
+                        <button
+                            type="button"
+                            data-title="{{ $product->name }}"
+                            data-price-str="Rp {{ number_format($product->price, 0, ',', '.') }}"
+                            data-img="{{ $product->image_path ? asset('storage/' . $product->image_path) : 'https://placehold.co/400x400/4a0e4e/ffffff?text=Ubi' }}"
+                            data-price="{{ $product->price }}"
+                            onclick="openModalFromBtn(this)"
+                            class="text-[#7A379B] font-medium text-sm flex items-center hover:opacity-80 transition-opacity">
                             Add to Cart
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-5 ml-1">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -165,9 +179,9 @@
     </section>
 
     <section class="py-20 overflow-hidden bg-black/10" id="ceritakita">
-        <h1 class="text-center text-[#D8B4FE] text-sm font-semibold tracking-widest uppercase mb-16 bg-white/5 inline-block px-6 py-2 rounded-full mx-auto flex w-max">
-            Cerita Kami
-        </h1>
+    <h1 class="text-center text-[#D8B4FE] text-sm font-semibold tracking-widest uppercase mb-16 bg-white/5 block px-6 py-2 rounded-full mx-auto w-max">
+        Cerita Kami
+    </h1>
 
         <div class="flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24 px-6 lg:px-20">
             <div class="relative inline-block shrink-0 mt-4 md:mt-0">
@@ -310,11 +324,11 @@
     <footer class="bg-[#151B26] text-white py-12 px-6 md:px-12 lg:px-24 border-t border-gray-800">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
             <div class="lg:col-span-1">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 bg-[#E5C3C6] rounded-full flex items-center justify-center shrink-0">
-                        <span class="text-[#8E248C] font-bold text-lg font-serif">A</span>
+                <div class="flex items-center gap-x-3">
+                    <div class="w-12 h-12 bg-[#F0BCD3] flex justify-center items-center  rounded-xl">
+                        <img src="{{ asset('images/logo.png') }}" alt="logo" class="h-5 md:h-7 lg:h-8 w-auto" onerror="this.style.display='none'" />
                     </div>
-                    <h2 class="text-xl font-serif tracking-wide">Aubira Purplora</h2>
+                    <h1 class="text-[#FFD3D5] font-semibold">Aubira Purplora</h1>
                 </div>
                 <p class="text-gray-400 text-xs leading-relaxed">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -445,6 +459,17 @@
         const modalContent = document.getElementById('modal-content');
         let qty = 1;
 
+        // Fungsi baru untuk mengambil data dari tombol dengan aman
+        function openModalFromBtn(button) {
+            const title = button.getAttribute('data-title');
+            const priceStr = button.getAttribute('data-price-str');
+            const imgSrc = button.getAttribute('data-img');
+            const rawPrice = parseInt(button.getAttribute('data-price'));
+
+            // Panggil fungsi modal utama kamu
+            openModal(title, priceStr, imgSrc, rawPrice);
+        }
+
         function openModal(title, priceStr, imgSrc, rawPrice) {
             currentProduct = {
                 title,
@@ -512,47 +537,49 @@
 
         function updateCartUI() {
             const cartContainer = document.getElementById('cart-items');
-            const emptyMsg = document.getElementById('empty-cart-msg');
             const totalEl = document.getElementById('cart-total');
             const badge = document.getElementById('cart-badge');
 
-            cartContainer.innerHTML = '';
             let total = 0;
             let totalItems = 0;
 
+            // 1. Cek apakah keranjang kosong
             if (cart.length === 0) {
-                cartContainer.appendChild(emptyMsg);
-                emptyMsg.style.display = 'block';
+                // Jika kosong, langsung tulis pesan kosong ke dalam kontainer
+                cartContainer.innerHTML = '<div class="text-center text-gray-500 mt-10 text-sm italic" id="empty-cart-msg">Keranjangmu masih kosong.</div>';
                 badge.classList.add('hidden');
             } else {
-                emptyMsg.style.display = 'none';
-                badge.classList.remove('hidden');
+                // 2. Jika ada isinya, kita rakit HTML daftarnya
+                let htmlList = '';
 
                 cart.forEach((item, index) => {
                     total += (item.rawPrice * item.qty);
                     totalItems += item.qty;
 
-                    const itemHTML = `
-                            <div class="flex items-center gap-4 bg-white p-3 rounded-2xl shadow-sm">
-                                <img src="${item.imgSrc}" alt="${item.title}" class="w-14 h-14 rounded-xl object-cover" />
-                                <div class="flex-grow">
-                                    <h3 class="text-[#540863] font-bold text-sm leading-tight">${item.title}</h3>
-                                    <p class="text-xs text-gray-500">Jumlah: ${item.qty}</p>
-                                    <p class="text-[#7A379B] font-bold text-sm mt-0.5">Rp ${ (item.rawPrice * item.qty).toLocaleString('id-ID') }</p>
-                                </div>
-                                <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 bg-red-50 p-2 rounded-lg transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
-                                </button>
-                            </div>
-                        `;
-                    cartContainer.innerHTML += itemHTML;
+                    htmlList += `
+                <div class="flex items-center gap-4 bg-white p-3 rounded-2xl shadow-sm">
+                    <img src="${item.imgSrc}" alt="${item.title}" class="w-14 h-14 rounded-xl object-cover" />
+                    <div class="flex-grow">
+                        <h3 class="text-[#540863] font-bold text-sm leading-tight">${item.title}</h3>
+                        <p class="text-xs text-gray-500">Jumlah: ${item.qty}</p>
+                        <p class="text-[#7A379B] font-bold text-sm mt-0.5">Rp ${ (item.rawPrice * item.qty).toLocaleString('id-ID') }</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 bg-red-50 p-2 rounded-lg transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" /></svg>
+                    </button>
+                </div>
+            `;
                 });
+
+                // Tulis semua isi keranjang sekaligus ke dalam kontainer
+                cartContainer.innerHTML = htmlList;
+                badge.classList.remove('hidden');
             }
 
+            // 3. Update teks total dan angka pada lencana (badge)
             totalEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
             badge.innerText = totalItems;
         }
-
         // Sidebar Drawer Toggles
         function toggleCart() {
             const drawer = document.getElementById('cart-drawer');
@@ -577,10 +604,10 @@
             }
 
             // 2. Setting nomor WA tujuan (Ganti pakai nomor admin yang asli, gunakan format 62 tanpa + atau 0)
-            const nomorWA = "628";
+            const nomorWA = "6287869249088";
 
             // 3. Siapkan teks sapaan awal
-            let textWA = "Halo Admin Aubira Purplora! 💜\nSaya mau order menu ini dong:\n\n";
+            let textWA = "Halo Admin Aubira Purplora! \nSaya mau order menu ini dong:\n\n";
             let totalSemua = 0;
 
             // 4. Looping isi keranjang buat ditulis ke dalam pesan
@@ -596,7 +623,7 @@
             textWA += `====================\n`;
             textWA += `*Total Belanja: Rp ${totalSemua.toLocaleString('id-ID')}*\n`;
             textWA += `====================\n\n`;
-            textWA += "Tolong infoin total sama ongkir ke alamatku ya Min, sekalian minta nomor QRIS/Rekeningnya. Terima kasih! ✨";
+            textWA += "Tolong infoin total sama ongkir ke alamatku ya Min, sekalian minta nomor QRIS/Rekeningnya. Terima kasih! ";
 
             // 6. Encode teks agar rapi saat masuk ke URL (spasi jadi %20, enter jadi %0A)
             const encodedText = encodeURIComponent(textWA);
@@ -604,6 +631,29 @@
 
             // 7. Buka tab baru ke WhatsApp
             window.open(urlWA, '_blank');
+        }
+
+        function filterMenu(kategoriId, tombolYangDiklik) {
+            // 1. Ubah warna semua tombol jadi transparan (tidak aktif)
+            const semuaTombol = document.querySelectorAll('.filter-btn');
+            semuaTombol.forEach(tombol => {
+                tombol.classList.remove('bg-[#D8B4FE]', 'text-[#7A379B]');
+                tombol.classList.add('bg-white/20', 'text-white');
+            });
+
+            // 2. Ubah warna tombol yang barusan diklik jadi menyala (aktif)
+            tombolYangDiklik.classList.remove('bg-white/20', 'text-white');
+            tombolYangDiklik.classList.add('bg-[#D8B4FE]', 'text-[#7A379B]');
+
+            // 3. Sembunyikan atau tampilkan card produk sesuai kategorinya
+            const semuaCard = document.querySelectorAll('.menu-card');
+            semuaCard.forEach(card => {
+                if (kategoriId === 'all' || card.getAttribute('data-kategori') === kategoriId) {
+                    card.style.display = 'flex'; // Tampilkan
+                } else {
+                    card.style.display = 'none'; // Sembunyikan
+                }
+            });
         }
     </script>
 </body>

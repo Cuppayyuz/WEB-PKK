@@ -15,8 +15,9 @@ use App\Http\Controllers\MessageController;
 Route::get('/', function () {
     // Ambil produk dan kategori dari database
     $products = App\Models\Product::with(['category', 'label'])->latest()->get();
+    $categories = App\Models\Category::all(); // <-- Tambahkan baris ini
     
-    return view('welcome', compact('products')); 
+    return view('welcome', compact('products', 'categories')); // <-- Tambahkan 'categories' ke compact
 });
 
 Route::post('/contact', [MessageController::class, 'store'])
